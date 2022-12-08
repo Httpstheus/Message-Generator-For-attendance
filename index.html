@@ -3,12 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
+        <title>Gerador de Cartas</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="style.css">
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+        <link rel="stylesheet" href="style.css">
+        <link href="https://www.mundialeditora.com/image/data/M-Fav2.png" rel="icon" />
     </head>
+
 <body>
         <header>
             <h1> Escolha a empresa e o modelo da Carta</h1> 
@@ -18,7 +20,10 @@
             <div class="message">
                 <select name="" id="tipo">
                     <option value="carta01">Cliente com muitas quebras</option>
-                    <option value="carta02">Cliente que já foi negociado poucas vezes</option>
+                    <option value="carta02">Cliente negociado poucas vezes</option>
+                    <option value="carta03">Cliente nunca negociado (1)</option>
+                    <option value="carta04">Cliente nunca negociado (2)</option>
+                    <option value="carta05">Cliente Geral</option>
                 </select> 
 
                 <select name="" id="emprise">
@@ -29,10 +34,11 @@
 
                 <div class="box">
                             <label>Nome do Cliente<input type="text" placeholder="Nome do Cliente" name="name" value="" id="nome" autocomplete="off"></label>
+                            <label>CPF<input type="text" placeholder="CPF" name="cpf" value="" id="cpf" autocomplete="off"  maxlength="14"></label>
                             <label>Telefone<input type="text" placeholder="Telefone" name="name" value="" id="telefone" autocomplete="off">  </label>  
                             <label>Nr.Doc<input type="text" placeholder="Nr.Doc" name="name" value="" id="protocolo" autocomplete="off"> </label>
-                            <label>Valor Atualizado<input type="number" placeholder="Valor Atualizado" name="name" value="" id="juros" autocomplete="off"> </label>
-                            <label>Débito Original<input type="number" placeholder="Valor sem Juros (NF)" name="name" value="" id="valor" autocomplete="off"></label>
+                            <label>Valor Atualizado<input type="text" placeholder="Valor Atualizado" name="name" value="" id="juros" autocomplete="off"> </label>
+                            <label>Débito Original<input type="number" placeholder="Débito Original" name="name" value="" id="valor" autocomplete="off"></label>
                             <label>Parcelas no Cartão<input type="number" placeholder=" Qnt. de Parcelas no Cartão" name="name" value="" id="parcela" autocomplete="off"></label>
                 </div> <!--end div box-->
 
@@ -51,6 +57,8 @@
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="crossorigin="anonymous"></script>
-    <script src="main.js"></script>
+    <script>
+
+    </script>
     </body>
 </html>
