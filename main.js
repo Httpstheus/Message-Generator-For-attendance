@@ -1,49 +1,50 @@
+        document.getElementById('telefone').addEventListener('input', function (e) {
+            var x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,5})(\d{0,4})/);
+            e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+        });
 
-document.getElementById('telefone').addEventListener('input', function (e) {
-    var x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,5})(\d{0,4})/);
-    e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
-  });
+        const input = document.getElementById('cpf')
 
-const input = document.getElementById('cpf')
+            input.addEventListener('keypress', () => {
+                let inputLength = input.value.length
 
-      input.addEventListener('keypress', () => {
-          let inputLength = input.value.length
-
-          // MAX LENGHT 14  CPF
-          if (inputLength == 3 || inputLength == 7) {
-              input.value += '.'
-          }else if (inputLength == 11) {
-              input.value += '-'
-          }
-      },
+                // MAX LENGHT 14  CPF
+                if (inputLength == 3 || inputLength == 7) {
+                    input.value += '.'
+                }else if (inputLength == 11) {
+                    input.value += '-'
+                }
+            },
 
 
- 
-  $(document).ready(function(){
-    $('#btn-send').on('click', validarDados);
+    
+    $(document).ready(function(){
+        $('#btn-send').on('click', validarDados);
 
-    function validarDados() {
+        function validarDados() {
 
-        // Variáveis que são chamadas no HTML 
+            // Variáveis que são chamadas no HTML 
 
-      let tipo           = $('#tipo').val();
-      let nome           = $('#nome').val();
-     
-      let valor          = $('#valor').val(); 
-      let protocolo      = $('#protocolo').val();
-      let telefone       = $('#telefone').val();
-      let juros          = $('#juros').val ();
-      let parcela        = ($('#parcela').val() == '') ? 1: $('#parcela').val();
-      let valorParcela   = (valor/parcela).toFixed(2); ;
-      let mensagem       = '';
-      let cpfCliente     = $('#cpf').val();
-      let replaceNumbers = '.XXX.XXX';
-      let inicioReplace = cpfCliente.substring(0,3);
-      let endReplace = cpfCliente.substring(11);
-      let resultMaskReplace = inicioReplace + replaceNumbers + endReplace;
-      let valueEmprise = document.getElementById("emprise").value;
-            document.getElementById("resposta").innerHTML = valueEmprise;
-  
+        let tipo           = $('#tipo').val();
+        let nome           = $('#nome').val();
+        
+        let valor          = $('#valor').val(); 
+        let protocolo      = $('#protocolo').val();
+        let telefone       = $('#telefone').val();
+        let juros          = $('#juros').val ();
+        let parcela        = ($('#parcela').val() == '') ? 1: $('#parcela').val();
+        let valorParcela   = (valor/parcela).toFixed(2); ;
+        let mensagem       = '';
+        let cpfCliente     = $('#cpf').val();
+        let replaceNumbers = '.XXX.XXX';
+        let inicioReplace = cpfCliente.substring(0,3);
+        let endReplace = cpfCliente.substring(11);
+        let resultMaskReplace = inicioReplace + replaceNumbers + endReplace;
+        let valueEmprise = document.getElementById("emprise").value;
+        
+        // Chamar o conteúdo através do INNER em nosso HTML
+        document.getElementById("resposta").innerHTML = valueEmprise;
+    
    
       switch(tipo) {
 
@@ -77,7 +78,8 @@ const input = document.getElementById('cpf')
             messageFinished = document.getElementById("resposta").innerHTML = mensagem;
 
           break;
-        // Message for Option 2 -> Cliente sem Contato
+       
+          // Message for Option 2 -> Cliente sem Contato
           case 'carta02':
             mensagem =
                     // Nr.Document & telephone client
@@ -107,8 +109,8 @@ const input = document.getElementById('cpf')
 
           break;
 
-                  // Message for Option 3 -> Encerrou na Homologação/Finalização
-                  case 'carta03':
+         // Message for Option 3 -> Encerrou na Homologação/Finalização
+         case 'carta03':
                     mensagem =
                             // Nr.Document & telephone client
                                'Nr: ' +protocolo + ' || Telefone: ' +telefone + '<br> <br>' +
@@ -139,8 +141,8 @@ const input = document.getElementById('cpf')
         
                   break;
                   
-                        // Message for Option 4 -> Acordo Recente
-                  case 'carta04': 
+         // Message for Option 4 -> Acordo Recente
+         case 'carta04': 
 
                   mensagem =
                             // Nr.Document & telephone client
@@ -148,7 +150,7 @@ const input = document.getElementById('cpf')
 
                             '*AUDIÊNCIA PRESENCIAL SERÁ AGENDADA EM ARAÇATUBA-SP* <br><br>' +
 
-                            'Olá *' + nome + '*. Sou atendente Luana do *Escritório Máximos' +
+                            'Olá *' + nome + '*. Sou atendente Luana do *Escritório Máximos* <br>' +
                             'PROTOCOLO DE ATENDIMENTO:' + protocolo + '<br><br>' +
 
                             'Após a recusa de inúmeras tentativas de uma conciliação amigável, foi solicitado a *execução* de uma ação em seu CPF *' + resultMaskReplace + '* <br><br>' +
@@ -169,15 +171,15 @@ const input = document.getElementById('cpf')
             
                     break;
                     
-                    //Message for Option 5 -> Carta Forte 01
-                  case 'carta05': 
+         //Message for Option 5 -> Carta Forte 01
+         case 'carta05': 
 
                   mensagem =
                             // Nr.Document & telephone client
                                'Nr: ' +protocolo + ' || Telefone: ' +telefone + '<br> <br>' +
 
-                               '*' + nome + 'CPF' + resultMaskReplace + '* sou a Maria, representante jurídica da MÁXIMOS ADVOCACIA <br>' +
-                               'Protocolo: ' + protocolo + '<br><br>'
+                               '*' + nome + ' CPF' + resultMaskReplace + '* sou a Maria, representante jurídica da MÁXIMOS ADVOCACIA <br>' +
+                               'Protocolo: ' + protocolo + '<br><br>' +
 
                                'Por falta de pagamento com a *' + valueEmprise + '*, segue em andamento seu processo <br><br>' +
 
@@ -187,8 +189,8 @@ const input = document.getElementById('cpf')
                                
                                '*Valor total R$ ' + juros + '* <br><br>' +
                                
-                               '1 - Pagamentos através de PIX HOJE *R$ ' + valor + '* <br>' +
-                               '2 - Cartão de Crédito parcelado em até *12x de R$ ' + valorParcela + '* (Podendo ser cartão de terceiros)' +
+                               '1 - Pagamento através de PIX HOJE *R$ ' + valor + '* <br>' +
+                               '2 - Cartão de Crédito parcelado em até *12x de R$ ' + valorParcela + '* (Podendo ser cartão de terceiros) <br>' +
                                'Fale com a credora: 0800 779 4000 <br><br>' +
                                
                                '*Prazo para resolução até 2 horas, após a entrega dessa mensagem*';
@@ -197,8 +199,8 @@ const input = document.getElementById('cpf')
 
                     break;
 
-                        //Message for Option 6 -> Carta Forte 02
-                 case 'carta06': // Carta Forte 02
+         //Message for Option 6 -> Carta Forte 02
+         case 'carta06': // Carta Forte 02
 
                  mensagem =
                             // Nr.Document & telephone client
@@ -206,49 +208,39 @@ const input = document.getElementById('cpf')
 
                                '*DOCUMENTAÇÃO ENCAMINHADA AO TRIBUNAL DE PEQUENAS CAUSAS EM 24 HORAS* <br><br>' +
                                
-                               'Devido a falta de pagamento por parte da(º) inadimplente' + '*' + nome + '* a empresa processante *' + valueEmprise + '* ' +
+                               'Devido a falta de pagamento por parte da(º) inadimplente ' + '*' + nome + '* a empresa processante *' + valueEmprise + '* ' +
                                'dará continuidade a ação solicitada nas próximas 24 horas. A paralisação da documentação de Nº *' + protocolo + '* ocorrerá mediante a negociação do Débito! <br> <br>' +
                               
                                'O não retorno dessa notificação será considerado recusa de acordo. Digite a opção escolhida <br><br>' +
 
                                '*1* - _Quero negociar e evitar transtornos_ <br>' +
-                               '*2* - _Autorizo sequência ao processo em 2ª instância como recusa de acordo._' +
+                               '*2* - _Autorizo sequência ao processo em 2ª instância como recusa de acordo._ <br><br>' +
                                
-                               '*Consulte sua ação interna*' + 
-                               'Site: https://advocaciamaximos.com <br<br>' +
+                               '*Consulte sua ação interna:* <br> Site: https://advocaciamaximos.com <br> <br>' + 
 
-                               '*OBS: Caso não haja pagamento e houver determinação judicial pelo Art. 829. O executado será' +
+                               '<br<br> *OBS: Caso não haja pagamento e houver determinação judicial pelo Art. 829. O executado será ' +
                                'citado para pagar a dívida total de *R$ 4.388,72* no prazo de 2 (dois) dias, contado da citação.*'
-
-
-
-
-
-
 
                     messageFinished = document.getElementById("resposta").innerHTML = mensagem;
 
                     break;
-                  
-                  
-       
+                                       
       }
-
-      
+    
     } 
       
   }));
 
-  function CopyToClipboard(resposta){
-    var r = document.createRange();
-    r.selectNode(document.getElementById(resposta));
-    window.getSelection().removeAllRanges();
-    window.getSelection().addRange(r);
-    try {
-        document.execCommand('copy');
+    function CopyToClipboard(resposta){
+        var r = document.createRange();
+        r.selectNode(document.getElementById(resposta));
         window.getSelection().removeAllRanges();
-        console.log(r);
-    } catch (err) {
-        console.log('Unable to copy!');
+        window.getSelection().addRange(r);
+        try {
+            document.execCommand('copy');
+            window.getSelection().removeAllRanges();
+            console.log(r);
+        } catch (err) {
+            console.log('Unable to copy!');
+        }
     }
-}
