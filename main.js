@@ -1,5 +1,5 @@
 
-  document.getElementById('telefone').addEventListener('input', function (e) {
+document.getElementById('telefone').addEventListener('input', function (e) {
     var x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,5})(\d{0,4})/);
     e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
   });
@@ -23,6 +23,9 @@ const input = document.getElementById('cpf')
     $('#btn-send').on('click', validarDados);
 
     function validarDados() {
+
+        // Variáveis que são chamadas no HTML 
+
       let tipo           = $('#tipo').val();
       let nome           = $('#nome').val();
      
@@ -31,131 +34,203 @@ const input = document.getElementById('cpf')
       let telefone       = $('#telefone').val();
       let juros          = $('#juros').val ();
       let parcela        = ($('#parcela').val() == '') ? 1: $('#parcela').val();
-      let valorDesc      = (valor - (valor *0.3)).toFixed(2); 
-      let valorParcela   = (valorDesc/parcela).toFixed(2); ;
+      let valorParcela   = (valor/parcela).toFixed(2); ;
       let mensagem       = '';
       let cpfCliente     = $('#cpf').val();
       let replaceNumbers = '.XXX.XXX';
       let inicioReplace = cpfCliente.substring(0,3);
       let endReplace = cpfCliente.substring(11);
       let resultMaskReplace = inicioReplace + replaceNumbers + endReplace;
-
-      
-      var valueEmprise = document.getElementById("emprise").value;
+      let valueEmprise = document.getElementById("emprise").value;
             document.getElementById("resposta").innerHTML = valueEmprise;
   
    
       switch(tipo) {
 
-          // Message for Option 1
+          // Message for Option 1 -> Contato ou Acordo Recente
           case 'carta01':
             mensagem =
             // Nr.Document & telephone client
                'Nr: ' +protocolo + ' || Telefone: ' +telefone + '<br> <br>' +
 
-            //    Message 
-                   
+                    //    Message 
+                    '*AUDIÊNCIA PRESENCIAL SERÁ AGENDADA EM ARAÇATUBA-SP* <br><br>' +
+                           
+                           '*' + nome + '*' + ' Meu nome é Giovana do setor jurídico da máximos advocacia, <br>' +
+                           'por negligência de sua parte em honrar com os pagamentos vinculado ao contrato <br>'
+                            +protocolo + ' com a ' + valueEmprise +
+                           ', foi encaminhado o protocolo a processo interno em seu  CPF ' + resultMaskReplace +
+                           ' como: bloqueios da CNH, contas, 30% da renda familiar, entre outros.' +
+                           'Consulte agora: https://advocaciamaximos.com/ <br><br>' +
 
-                   'Olá, ' + nome + ',' + '<br><br>' +
-                   '*Ação Interna Executada* aguardando posicionamento do requerido.' + '<br>' +
-                   'Para consulta do seu Processo: https://advocaciamaximos.com/resultado#consultar.' + '<br><br>' +
-                   'Precisamos falar com o titular acima com urgência.' + '<br><br>'
-                   'Responda com INFORMAÇÕES caso seja o titular.'; 
+                           '*Evite a visita do OFICIAL DE JUSTIÇA em sua residência e regularize sua pendência* <br><br>' +
 
+                           'Valor atualizado da ação de *R$ ' + juros + '* por *R$ ' + valor + '* <br>' +
+                           '1 - Pagamento através de PIX HOJE *R$ ' + valor + '* <br>' +
+                           '2 - Pagamento através do Cartão de Crédito em até 12x de *R$ ' + valorParcela + '* (podendo ser de tereceiros) <br><br>' +
+
+                           'fale com a Credora *0800 779 4000* <br><br>' +
+                           'A não resposta será considerado recusa de negociação, dando continuidade a devida ação' +
+                           'extrajudicial cabível, visando pagamento da dívida mencionada';
+        
+                           
             messageFinished = document.getElementById("resposta").innerHTML = mensagem;
 
           break;
-        // Message for Option 2
+        // Message for Option 2 -> Cliente sem Contato
           case 'carta02':
             mensagem =
                     // Nr.Document & telephone client
                        'Nr: ' +protocolo + ' || Telefone: ' +telefone + '<br> <br>' +
      
-                    //    Message 
-                           '*SALDÃO DE DESCONTO* <br>' 
-                           
-                           + nome +  ' tudo bem? sou a Bruna Ingrid mediadora do Escritório Máximo. <br>' +
-                           'Protocolo de atendimento: ' +protocolo + '<br><br>' +
-                           'Aproveite hoje e quite seu contrato com a credora ' +valueEmprise+  ' com o desconto de 60% de desconto ' +
-                           'e evite os possíveis bloqueios de bens de acordo com o Art. 789 da Lei 13105/15, ciente que após as 12 ' +
-                           'horas será dado continuidade as medidas cabíveis.  ' + '<br><br>' +
-                           'Valor da sua documentação: R$ ' + juros +
-                           
-                           '<br><br> *DIGITE 1*: Quitação por PIX ou Boleto a vista por R$ ' +valorDesc +
-                           '<br>*DIGITE 2*Quitação pelo cartão de crédito ' +parcela + ' vezes de R$ ' +valorParcela +
-                           '<br><br> *Qual melhor opção para pagamento HOJE?*';
-                           
+                        '*' +nome + '*' + ', meu nome é Isabela, falo da *Máximos Advocacia* - ' +
+                        'Protocolo de atendimento: *' + protocolo + '* <br><br>' +
+                        
+                        'Nosso contato é referente à um pedido de *Ação Extrajudicial* que' +
+                        ' foi solicitada em seu CPF *' + resultMaskReplace + '*. ' +
+                        'Pela empresa *' +valueEmprise +  '*<br><br>' +
 
+                        'Essa ação está sujeita a entrar em vigor em um *prazo de 24 horas úteis*, ' + 
+                        'e dentro desse prazo o (ª) senhor (ª) estará amparado (ª) pela lei, portanto ' +
+                        'vamos lhe passar as propostas de conciliação: <br><br>' +
+
+                        'Débito atualizado *R$ ' + juros + '* - Valor autorizado para quitação *R$ ' + valor + '* <br>' +
+                        '1 - *Cartão de Crédito* em até 12x de *R$ ' + valorParcela + '* SEM JUROS (podendo ser de terceiros) <br>' +
+                        '2 - *Boleto Quitação* à vista ou *PIX* por* R$' + valor + '*<br><br>' +
+
+                        'Caso não haja o retorno ainda *HOJE*, tomaremos as medidas judicialmente' +
+                        'cabíveis. <br>' +
+                        'Aguardamos retorno com urgência! <br><br>' +
+                        'Fale com a credora: *0800 779 4000*';
+              
             messageFinished = document.getElementById("resposta").innerHTML = mensagem;
 
           break;
 
-                  // Message for Option 3
+                  // Message for Option 3 -> Encerrou na Homologação/Finalização
                   case 'carta03':
                     mensagem =
                             // Nr.Document & telephone client
                                'Nr: ' +protocolo + ' || Telefone: ' +telefone + '<br> <br>' +
              
                             //    Message 
-                                   '*PROCESSO DE EXECUÇÃO PARA AÇÃO INTERNA* <br><br>' +
-                                   
-                                   'Olá ' + nome + '  <br>' +
-                                   'Ação Interna aberta em seu nome e CPF, com pedido de visita do *Oficial de Justiça* para avaliação de *Penhora de Bens*. <br><br>' +
-                                   'Processo: ' +protocolo + '<br>' +
-                                   'CPF: ' + resultMaskReplace + '<br>'+
-                                   'Valor da Ação: '  +juros + 
+                          '*' + nome  + '* sou Lucas, do setor de Mediação Jurídica. <br>' +
+                          'Protocolo de atendimento *' + protocolo + '*<br><br>' +
 
-                                   '<br> Proposta de conciliação: R$'  +valorDesc +
-                                   '<br><br>Para Conciliação Online responda *EU QUERO*'   
-        
+                          'Foi iniciado no CPF pela credora ' + valueEmprise +
+                          ' solicitação para comparecimento no 1º Tabelião de Notas no estado de ' +
+                          'São Paulo e poderá brevemente ser notificado em residência. <br><br>' +
+
+                          'Faça uma Conciliação amigável em até 2 horas, *Evite uma medida extrajudicial* ao seu CPF *' + resultMaskReplace  + '*<br>' +
+                          'Débito atualizado de ~R$' + juros + '~<br><br>' +
+
+                          '*DIGITE 1* - *Quitação de TODAS as parcelas* por *R$ ' + valor + '*<br>' +
+                          '*DIGITE 2* - Cartão de Crédito em até 12 vezes de *R$ ' + valorParcela + ' sem juros* <br><br>' +
+
+                          'Fale com a instituição: 0800 779 4000 <br>' +
+                          '*Qual melhor forma de pagamento HOJE?* <br><br>' +
+
+                          'A instituição se resguarda no seu direito de tomar as medidas cabíveis em âmbito' +
+                          'extraducial caso não seja realizado um acordo';
+
+
+
                     messageFinished = document.getElementById("resposta").innerHTML = mensagem;
         
                   break;
+                  
+                        // Message for Option 4 -> Acordo Recente
+                  case 'carta04': 
 
-                                    // Message for Option 4
-                  case 'carta04':
-                    mensagem =
+                  mensagem =
                             // Nr.Document & telephone client
                                'Nr: ' +protocolo + ' || Telefone: ' +telefone + '<br> <br>' +
-             
-                            //    Message 
-                                   '*PROCESSO EXTRAJUDICIAL* <br><br>' +
-                                   
-                                   'Sr.(a) ' + nome + '  <br>' +
-                                   'Ação Interna no valor de *' + juros +'* <br><br>' +
-                                   '*Atualmente se encontra com uma ação interna, EM ANDAMENTO, protocolada em nosso escritório*. <br>' +
-                                   'Você pode consultar em:  https://advocaciamaximos.com/#consultar <br>'+
-                                   'Está para ser agendada a *VISITA DO OFICIAL DE JUSTIÇA COM PEDIDO PRÉVIO DE INTIMAÇÃO*<BR><BR>'+
-                                   'Esta libera a conciliação amigável sem custo Advocatício, para abrir *DIGITE SIM*.'                 
-        
+
+                            '*AUDIÊNCIA PRESENCIAL SERÁ AGENDADA EM ARAÇATUBA-SP* <br><br>' +
+
+                            'Olá *' + nome + '*. Sou atendente Luana do *Escritório Máximos' +
+                            'PROTOCOLO DE ATENDIMENTO:' + protocolo + '<br><br>' +
+
+                            'Após a recusa de inúmeras tentativas de uma conciliação amigável, foi solicitado a *execução* de uma ação em seu CPF *' + resultMaskReplace + '* <br><br>' +
+
+                            '*Como você não reside no mesmo estado em que será realizada a audiência, conseguimos uma última oportunidade de pagamento antes da execução* <br><br>' +
+
+                            'Valor das custas processuais *R$ ' + juros + '*<br><br>' +
+
+                            'DIGITE 1 - *QUITAÇÃO NO PIX* por *R$ ' + valor + '* <br>' +
+                            'DIGITE 2 - *CARTÃO DE CRÉDITO* em *12X R$ ' + valorParcela + '* (podendo ser de terceiros) <br><br>' +
+
+                            'SAC: *0800 779 4000*';
+
+
+
+
                     messageFinished = document.getElementById("resposta").innerHTML = mensagem;
-        
-                  break;
-        
-                                    // Message for Option 5
-                  case 'carta05':
-                    mensagem =
+            
+                    break;
+                    
+                    //Message for Option 5 -> Carta Forte 01
+                  case 'carta05': 
+
+                  mensagem =
                             // Nr.Document & telephone client
                                'Nr: ' +protocolo + ' || Telefone: ' +telefone + '<br> <br>' +
-             
-                            //    Message 
-                                   '*NOTIFICAÇÃO DE PEDIDO DE CONDENAÇÃO DE PAGAMENTO* <br><br>' +
-                                   
-                                   'Nome ' + nome + '  <br>' +
-                                   'Protocolo: ' +protocolo + '<br><br>' +
 
-                                   '*Ação Interna executada* aguardando posicionamento do requerido. <br>' +
-                                   'Para consulta do seu Processo: https://advocaciamaximos.com/resultado#consultar. <br><br>' +
-                                   '*Valor em Processo: R$' + juros + '<br>' +
-                                   '*DIGITE 1* - Boleto quitação à vista *R$' + valorDesc + '*<br>' +
-                                   '*DIGITE 2* - Cartão de crédito em *12 vezes sem juros* (Podendo ser de Terceiros) <br>' +
-                                   '*DIGITE 3* - Nova proposta de pagamento. <br><br>' +
-                                   'Digite uma opção e receba os valores.'
+                               '*' + nome + 'CPF' + resultMaskReplace + '* sou a Maria, representante jurídica da MÁXIMOS ADVOCACIA <br>' +
+                               'Protocolo: ' + protocolo + '<br><br>'
+
+                               'Por falta de pagamento com a *' + valueEmprise + '*, segue em andamento seu processo <br><br>' +
+
+                               '*Artigo 789 da Lei nº 13.105 de 16 de Março de 2015* <br>' +
+                               'O devedor responde com todos os seus bens presentes e futuros para o cumprimento de suas obrigações, salvo as restrições em estabelecidas em lei. <br><br>' +
+                               '*Reforçamos que essa é a última tentativa de acordo amigável, com a redução dos encargos* <br><br>' +
+                               
+                               '*Valor total R$ ' + juros + '* <br><br>' +
+                               
+                               '1 - Pagamentos através de PIX HOJE *R$ ' + valor + '* <br>' +
+                               '2 - Cartão de Crédito parcelado em até *12x de R$ ' + valorParcela + '* (Podendo ser cartão de terceiros)' +
+                               'Fale com a credora: 0800 779 4000 <br><br>' +
+                               
+                               '*Prazo para resolução até 2 horas, após a entrega dessa mensagem*';
 
                     messageFinished = document.getElementById("resposta").innerHTML = mensagem;
-        
-                  break;
-        
+
+                    break;
+
+                        //Message for Option 6 -> Carta Forte 02
+                 case 'carta06': // Carta Forte 02
+
+                 mensagem =
+                            // Nr.Document & telephone client
+                               'Nr: ' +protocolo + ' || Telefone: ' +telefone + '<br> <br>' +
+
+                               '*DOCUMENTAÇÃO ENCAMINHADA AO TRIBUNAL DE PEQUENAS CAUSAS EM 24 HORAS* <br><br>' +
+                               
+                               'Devido a falta de pagamento por parte da(º) inadimplente' + '*' + nome + '* a empresa processante *' + valueEmprise + '* ' +
+                               'dará continuidade a ação solicitada nas próximas 24 horas. A paralisação da documentação de Nº *' + protocolo + '* ocorrerá mediante a negociação do Débito! <br> <br>' +
+                              
+                               'O não retorno dessa notificação será considerado recusa de acordo. Digite a opção escolhida <br><br>' +
+
+                               '*1* - _Quero negociar e evitar transtornos_ <br>' +
+                               '*2* - _Autorizo sequência ao processo em 2ª instância como recusa de acordo._' +
+                               
+                               '*Consulte sua ação interna*' + 
+                               'Site: https://advocaciamaximos.com <br<br>' +
+
+                               '*OBS: Caso não haja pagamento e houver determinação judicial pelo Art. 829. O executado será' +
+                               'citado para pagar a dívida total de *R$ 4.388,72* no prazo de 2 (dois) dias, contado da citação.*'
+
+
+
+
+
+
+
+                    messageFinished = document.getElementById("resposta").innerHTML = mensagem;
+
+                    break;
+                  
+                  
        
       }
 
